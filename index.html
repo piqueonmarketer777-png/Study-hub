@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyHub - Academic Resources & Study Materials</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Colors */
+        :root {
+            --navy-blue: #1a237e;
+            --navy-blue-light: #283593;
+            --white: #ffffff;
+            --off-white: #f8f9fa;
+            --light-gray: #e9ecef;
+            --medium-gray: #adb5bd;
+            --dark-gray: #495057;
+            --action-orange: #ff6f00;
+            --action-orange-light: #ff8f00;
+            --text-dark: #212529;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--off-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header and Navigation */
+        header {
+            background-color: var(--navy-blue);
+            color: var(--white);
+            box-shadow: 0 4px 12px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            color: var(--action-orange);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--action-orange);
+        }
+        
+        nav a.active {
+            color: var(--action-orange);
+        }
+        
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--action-orange);
+            border-radius: 2px;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--navy-blue) 0%, var(--navy-blue-light) 100%);
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        /* Search Bar */
+        .search-container {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+        
+        .search-bar {
+            display: flex;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 18px 25px;
+            border: none;
+            font-size: 1.1rem;
+            outline: none;
+        }
+        
+        .search-bar button {
+            background-color: var(--action-orange);
+            color: var(--white);
+            border: none;
+            padding: 0 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background-color: var(--action-orange-light);
+        }
+        
+        /* Featured Subjects */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--navy-blue);
+            font-size: 2.2rem;
+        }
+        
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .subject-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow);
+        }
+        
+        .subject-icon {
+            height: 120px;
+            background-color: var(--navy-blue-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+        }
+        
+        .subject-content {
+            padding: 20px;
+        }
+        
+        .subject-content h3 {
+            margin-bottom: 10px;
+            color: var(--navy-blue);
+        }
+        
+        .subject-content p {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Latest Uploads */
+        .uploads-container {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px var(--shadow);
+            margin-bottom: 60px;
+        }
+        
+        .uploads-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .upload-item {
+            border-left: 4px solid var(--action-orange);
+            padding: 15px;
+            background-color: var(--off-white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .upload-info h4 {
+            margin-bottom: 5px;
+            color: var(--navy-blue);
+        }
+        
+        .upload-info p {
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+        
+        .download-btn {
+            background-color: var(--action-orange);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .download-btn:hover {
+            background-color: var(--action-orange-light);
+        }
+        
+        /* Ads Container */
+        .ads-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .ad-banner {
+            width: 728px;
+            height: 90px;
+            background-color: var(--light-gray);
+            border: 1px dashed var(--medium-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--navy-blue);
+            color: var(--white);
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--action-orange);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--action-orange);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .subjects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .search-bar input {
+                padding: 15px 20px;
+            }
+            
+            .ad-banner {
+                width: 100%;
+                max-width: 468px;
+                height: 60px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .uploads-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            background-color: var(--navy-blue-light);
+            padding: 20px;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu ul {
+            list-style: none;
+        }
+        
+        .mobile-menu li {
+            margin-bottom: 15px;
+        }
+        
+        .mobile-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .mobile-menu a:hover {
+            color: var(--action-orange);
+        }
+        
+        /* Category Pages Styles */
+        .category-header {
+            background-color: var(--navy-blue-light);
+            color: var(--white);
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 15px;
+            color: var(--light-gray);
+        }
+        
+        .breadcrumb a {
+            color: var(--action-orange);
+            text-decoration: none;
+        }
+        
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .document-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        .document-preview {
+            height: 180px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+            font-size: 4rem;
+        }
+        
+        .document-info {
+            padding: 20px;
+        }
+        
+        .document-info h3 {
+            margin-bottom: 10px;
+            color: var(--navy-blue);
+        }
+        
+        .document-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Document Preview Page */
+        .document-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        @media (max-width: 992px) {
+            .document-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .document-preview-large {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        .preview-placeholder {
+            height: 500px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+            font-size: 5rem;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .document-summary {
+            background-color: var(--off-white);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .document-summary h3 {
+            color: var(--navy-blue);
+            margin-bottom: 15px;
+        }
+        
+        .document-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-primary {
+            background-color: var(--action-orange);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--action-orange-light);
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .sidebar-ad {
+            height: 250px;
+            background-color: var(--light-gray);
+            border: 1px dashed var(--medium-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+            font-weight: 600;
+            border-radius: 5px;
+        }
+        
+        .related-documents {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        .related-documents h3 {
+            color: var(--navy-blue);
+            margin-bottom: 20px;
+        }
+        
+        .related-list {
+            list-style: none;
+        }
+        
+        .related-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .related-list a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .related-list a:hover {
+            color: var(--action-orange);
+        }
+        
+        /* Blog Section */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .blog-post {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .blog-image {
+            height: 250px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+            font-size: 3rem;
+        }
+        
+        .blog-content {
+            padding: 25px;
+        }
+        
+        .blog-content h3 {
+            color: var(--navy-blue);
+            margin-bottom: 10px;
+        }
+        
+        .blog-meta {
+            display: flex;
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .blog-excerpt {
+            margin-bottom: 20px;
+        }
+        
+        .read-more {
+            color: var(--action-orange);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .read-more:hover {
+            text-decoration: underline;
+        }
+        
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--light-gray);
+            border-top: 4px solid var(--action-orange);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyHub</span>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#subjects">Subjects</a></li>
+                    <li><a href="#documents">Documents</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#subjects">Subjects</a></li>
+                <li><a href="#documents">Documents</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Comprehensive Study Resources for Every Discipline</h1>
+            <p>Access high-quality lecture notes, past exam papers, and subject-specific guides for law, business, medicine, programming, engineering, and more.</p>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search for study materials, past papers, or guides...">
+                    <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <p><i class="fas fa-file-alt"></i> 10,000+ Documents | <i class="fas fa-users"></i> 50,000+ Students | <i class="fas fa-university"></i> 50+ Subjects</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Banner -->
+    <div class="container">
+        <div class="ads-container">
+            <div class="ad-banner">AdSense Banner (728x90)</div>
+        </div>
+    </div>
+
+    <!-- Featured Subjects -->
+    <section class="container" id="subjects">
+        <h2 class="section-title">Featured Subjects</h2>
+        
+        <div class="subjects-grid">
+            <!-- Subject cards will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Latest Uploads -->
+    <section class="container" id="documents">
+        <h2 class="section-title">Latest Uploads</h2>
+        
+        <div class="uploads-container">
+            <div class="uploads-list">
+                <!-- Upload items will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Preview -->
+    <section class="container" id="blog">
+        <h2 class="section-title">Study Guides & Tips</h2>
+        
+        <div class="blog-container">
+            <div class="blog-main">
+                <!-- Blog posts will be generated by JavaScript -->
+            </div>
+            
+            <div class="sidebar">
+                <div class="sidebar-ad">AdSense Banner (300x250)</div>
+                
+                <div class="related-documents">
+                    <h3>Popular Resources</h3>
+                    <ul class="related-list">
+                        <li><a href="#">2023 Bar Exam Practice Questions</a></li>
+                        <li><a href="#">Medical School Anatomy Notes</a></li>
+                        <li><a href="#">Python Programming Exercises</a></li>
+                        <li><a href="#">Microeconomics Past Papers</a></li>
+                        <li><a href="#">Engineering Mathematics Formulas</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>StudyHub</h3>
+                    <p>Your comprehensive academic resource platform providing high-quality study materials, past exam papers, and subject-specific guides for students worldwide.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#subjects">Subjects</a></li>
+                        <li><a href="#documents">Documents</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">AdSense Policy</a></li>
+                        <li><a href="#">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contact@studyhub.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Education St, Academic City</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 StudyHub. All rights reserved. Designed for academic excellence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div class="spinner" id="loadingSpinner"></div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mobileMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Subjects data
+        const subjects = [
+            { id: 1, name: "Law", icon: "fas fa-gavel", color: "#3F51B5", description: "Case studies, past bar exams, legal writing guides" },
+            { id: 2, name: "Business", icon: "fas fa-chart-line", color: "#4CAF50", description: "MBA notes, case studies, financial analysis" },
+            { id: 3, name: "Medical", icon: "fas fa-stethoscope", color: "#F44336", description: "Anatomy notes, clinical guides, pharmacology" },
+            { id: 4, name: "Writing", icon: "fas fa-pen-fancy", color: "#9C27B0", description: "Academic writing, research papers, citation guides" },
+            { id: 5, name: "Science", icon: "fas fa-flask", color: "#00BCD4", description: "Biology, chemistry, physics lab reports" },
+            { id: 6, name: "Programming", icon: "fas fa-code", color: "#FF9800", description: "Coding exercises, project examples, algorithm guides" },
+            { id: 7, name: "Economics", icon: "fas fa-chart-pie", color: "#795548", description: "Micro/macro economics, econometrics, past papers" },
+            { id: 8, name: "Engineering", icon: "fas fa-cogs", color: "#607D8B", description: "Mechanical, electrical, civil engineering resources" },
+            { id: 9, name: "Mathematics", icon: "fas fa-calculator", color: "#2196F3", description: "Calculus, algebra, statistics problem sets" },
+            { id: 10, name: "Humanities", icon: "fas fa-book-open", color: "#E91E63", description: "Philosophy, literature, cultural studies" },
+            { id: 11, name: "History", icon: "fas fa-landmark", color: "#8BC34A", description: "Historical analysis, primary sources, exam papers" },
+            { id: 12, name: "Geography", icon: "fas fa-globe-americas", color: "#009688", description: "Maps, geological studies, environmental science" }
+        ];
+        
+        // Latest uploads data
+        const latestUploads = [
+            { id: 1, title: "Constitutional Law Past Papers 2023", subject: "Law", date: "2023-10-15", size: "2.4 MB" },
+            { id: 2, title: "Business Finance Case Studies", subject: "Business", date: "2023-10-14", size: "3.1 MB" },
+            { id: 3, title: "Medical Anatomy Complete Notes", subject: "Medical", date: "2023-10-12", size: "5.7 MB" },
+            { id: 4, title: "Academic Writing Guide - APA 7th Edition", subject: "Writing", date: "2023-10-10", size: "1.8 MB" },
+            { id: 5, title: "Organic Chemistry Lab Reports", subject: "Science", date: "2023-10-08", size: "4.2 MB" },
+            { id: 6, title: "Python Programming Exercises with Solutions", subject: "Programming", date: "2023-10-05", size: "2.9 MB" }
+        ];
+        
+        // Blog posts data
+        const blogPosts = [
+            { id: 1, title: "How to Effectively Study for Final Exams", excerpt: "Discover proven strategies to maximize your study efficiency and retain information better for your final exams.", date: "2023-10-10", readTime: "5 min" },
+            { id: 2, title: "Top 10 Resources for Medical Students", excerpt: "A comprehensive list of essential resources, textbooks, and online tools for medical students at all levels.", date: "2023-10-05", readTime: "7 min" },
+            { id: 3, title: "Writing a Research Paper: Step-by-Step Guide", excerpt: "Learn how to structure, research, and write an academic paper that meets all requirements and impresses your professors.", date: "2023-09-28", readTime: "10 min" }
+        ];
+        
+        // Generate subject cards
+        const subjectsGrid = document.querySelector('.subjects-grid');
+        subjects.forEach(subject => {
+            const subjectCard = document.createElement('div');
+            subjectCard.className = 'subject-card';
+            subjectCard.innerHTML = `
+                <div class="subject-icon" style="background-color: ${subject.color}">
+                    <i class="${subject.icon}"></i>
+                </div>
+                <div class="subject-content">
+                    <h3>${subject.name}</h3>
+                    <p>${subject.description}</p>
+                    <button class="download-btn">Browse Materials</button>
+                </div>
+            `;
+            subjectsGrid.appendChild(subjectCard);
+            
+            // Add click event to subject cards
+            subjectCard.addEventListener('click', () => {
+                showLoading();
+                setTimeout(() => {
+                    alert(`Navigating to ${subject.name} resources page. In a full implementation, this would load the category page with all ${subject.name} materials.`);
+                    hideLoading();
+                }, 500);
+            });
+        });
+        
+        // Generate latest uploads
+        const uploadsList = document.querySelector('.uploads-list');
+        latestUploads.forEach(upload => {
+            const uploadItem = document.createElement('div');
+            uploadItem.className = 'upload-item';
+            uploadItem.innerHTML = `
+                <div class="upload-info">
+                    <h4>${upload.title}</h4>
+                    <p>${upload.subject} • ${upload.date} • ${upload.size}</p>
+                </div>
+                <button class="download-btn" data-id="${upload.id}">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            `;
+            uploadsList.appendChild(uploadItem);
+            
+            // Add click event to download buttons
+            uploadItem.querySelector('.download-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                const id = e.target.getAttribute('data-id');
+                downloadDocument(id);
+            });
+        });
+        
+        // Generate blog posts
+        const blogMain = document.querySelector('.blog-main');
+        blogPosts.forEach(post => {
+            const blogPost = document.createElement('div');
+            blogPost.className = 'blog-post';
+            blogPost.innerHTML = `
+                <div class="blog-image">
+                    <i class="fas fa-book-reader"></i>
+                </div>
+                <div class="blog-content">
+                    <h3>${post.title}</h3>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> ${post.date}</span>
+                        <span style="margin-left: 15px;"><i class="far fa-clock"></i> ${post.readTime} read</span>
+                    </div>
+                    <p class="blog-excerpt">${post.excerpt}</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            `;
+            blogMain.appendChild(blogPost);
+            
+            // Add click event to blog posts
+            blogPost.addEventListener('click', () => {
+                showLoading();
+                setTimeout(() => {
+                    alert(`Loading blog post: "${post.title}". In a full implementation, this would navigate to the full article.`);
+                    hideLoading();
+                }, 500);
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                showLoading();
+                setTimeout(() => {
+                    alert(`Searching for: "${query}". In a full implementation, this would display search results for study materials related to "${query}".`);
+                    hideLoading();
+                }, 800);
+            } else {
+                alert('Please enter a search term');
+            }
+        }
+        
+        // Download document function
+        function downloadDocument(id) {
+            showLoading();
+            setTimeout(() => {
+                const document = latestUploads.find(doc => doc.id == id);
+                alert(`Downloading: "${document.title}"\n\nIn a full implementation, this would initiate the download of the PDF document.`);
+                hideLoading();
+            }, 800);
+        }
+        
+        // Loading spinner functions
+        function showLoading() {
+            document.getElementById('loadingSpinner').style.display = 'block';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }
+        
+        // Simulate page load
+        window.addEventListener('load', () => {
+            setTimeout(hideLoading, 500);
+        });
+        
+        // Initialize with loading spinner
+        showLoading();
+    </script>
+</body>
+</html>
